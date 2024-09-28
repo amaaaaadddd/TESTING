@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="logo.png" type="image/png"> <!-- Add favicon -->
+    <title>WARE MIRA</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden; /* Prevent scrollbars */
+            position: relative;
+            background-color: #f0f0f0; /* Light background for contrast */
+        }
+
+        .background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .background img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+        }
+
+        .background img.active {
+            opacity: 1;
+            animation: scaleUp 5s ease-in-out; /* Scale animation for active image */
+        }
+
+        @keyframes scaleUp {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.2);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .container {
+            position: relative;
+            z-index: 1; /* Ensure container is above the background */
+            text-align: center;
+            padding: 20px;
+        }
+
+        .logo {
+            width: 250px; /* Adjust the size of the logo */
+            margin-bottom: 20px; /* Space between logo and heading */
+        }
+
+        .ad-window {
+            background-color: rgba(255, 255, 255, 0.95); /* Slightly more opaque */
+            border-radius: 25px; /* More rounded corners */
+            padding: 30px; /* Increased padding */
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3); /* Softer shadow */
+            margin: 20px auto; /* Center box and space it out */
+            width: 600px; /* Width of the box */
+            height: 250px; /* Height of the box */
+            display: flex;
+            flex-direction: column;
+            justify-content: center; /* Center content vertically */
+            align-items: center; /* Center content horizontally */
+        }
+
+        h1 {
+            font-size: 2.5em; /* Adjusted font size */
+            color: #333;
+            margin-bottom: 20px; /* Increased margin for a cleaner look */
+            font-weight: bold; /* Make the font bold */
+            letter-spacing: 1px; /* Slightly spaced letters */
+            text-transform: uppercase; /* Uppercase for modern style */
+        }
+
+        button {
+            background-color: #ffc107; /* Amber background */
+            color: white;
+            border: none;
+            padding: 14px 28px; /* Increased padding */
+            font-size: 1.1em; /* Adjusted font size */
+            border-radius: 50px; /* Fully rounded button */
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions */
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+            margin-top: 15px; /* Space above button */
+            width: 80%; /* Wider button */
+            outline: none; /* Remove outline on focus */
+        }
+
+        button:hover {
+            background-color: #e0a800; /* Darker amber on hover */
+            transform: translateY(-2px); /* Slight lift effect on hover */
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4); /* Enhanced shadow on hover */
+        }
+
+        .contact-info {
+            margin-top: 20px; /* Space between text and button */
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2em; /* Adjust font size for smaller screens */
+            }
+
+            button {
+                padding: 12px 24px; /* Adjust button padding for smaller screens */
+                font-size: 1em; /* Adjust font size for smaller screens */
+            }
+
+            .logo {
+                width: 120px; /* Adjust logo size for smaller screens */
+            }
+
+            .ad-window {
+                width: 90%; /* Make boxes responsive on small screens */
+                height: auto; /* Allow height to adjust on smaller screens */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background" id="background">
+        <img src="image1.png" alt="Image 1" class="active">
+        <img src="image2.png" alt="Image 2">
+
+    </div>
+
+    <div class="container" id="mainContainer">
+        <img src="logo.png" alt="Logo" class="logo"> <!-- Logo added here -->
+        <div class="ad-window" id="adWindow">
+            <h1>WARE MIRA</h1>
+            <button id="contactButton">Contact Us</button>
+        </div>
+
+        <div class="ad-window" id="contactInfo" style="display: none;">
+            <h1>Contact Information</h1>
+            <p>Phone: +0964 (750) 498 3993</p>
+            <p>Email: admin@waremira.com</p>
+            <div class="contact-info">
+                <button onclick="resetContent()">Back</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const images = document.querySelectorAll('.background img');
+        let current = 0;
+
+        function showNextImage() {
+            images[current].classList.remove('active');
+            current = (current + 1) % images.length;
+            images[current].classList.add('active');
+        }
+
+        // Change images automatically every 5 seconds
+        setInterval(showNextImage, 5000); 
+
+        document.getElementById('contactButton').onclick = function() {
+            document.getElementById('adWindow').style.display = 'none';
+            document.getElementById('contactInfo').style.display = 'block';
+        };
+
+        function resetContent() {
+            document.getElementById('adWindow').style.display = 'block';
+            document.getElementById('contactInfo').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
